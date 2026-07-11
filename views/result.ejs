@@ -1,0 +1,28 @@
+<%- include("partials/header") %>
+
+<section class="w50">
+
+<div class="formData">
+
+<h2>Order Summary</h2>
+
+<p>Name: <%= name %></p>
+<p>Email: <%= email %></p>
+<p>Lunch: <%= lunch %></p>
+<p>Campus: <%= campus %></p>
+
+<p>Sub Total: $<%= cost.toFixed(2) %></p>
+<p>Tax: $<%= tax.toFixed(2) %></p>
+<p>Total: $<%= total.toFixed(2) %></p>
+
+<br>
+
+<a href="/">Go back</a>
+
+</div>
+
+</section>
+
+<div class="clear"></div>
+
+<%- include("partials/footer") %>

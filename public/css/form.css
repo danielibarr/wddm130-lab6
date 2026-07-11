@@ -1,0 +1,131 @@
+body {
+    background-color: #201a27;
+    font-family: 'Kalam', cursive;
+    font-size: 18px;
+    width: 960px;
+    margin: 50px auto;
+    color: #222;
+}
+
+/* Layout */
+.w50 {
+    width: 48%;
+    float: left;
+    margin: 1%;
+}
+
+.clear {
+    clear: both;
+}
+
+/* ERROR BOX */
+#errors {
+    color: #b00020;
+    font-family: 'Bilbo Swash Caps', cursive;
+    font-size: 20px;
+    line-height: 28px;
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    border-radius: 8px;
+}
+
+/* FORM CONTAINER */
+form,
+.formData {
+    width: 380px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    padding: 30px;
+    margin: 50px auto;
+    color: #222;
+    background-color: #ffffff;
+    border-radius: 12px;
+}
+
+/* LABELS */
+label {
+    width: 170px;
+    display: inline-block;
+    font-size: 16px;
+    color: #333;
+}
+
+/* INPUTS */
+input:not([type="radio"]),
+select {
+    font-size: 15px;
+    font-family: 'Kalam', cursive;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+input:not([type="radio"]) {
+    width: 170px;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+/* SELECT */
+select {
+    width: 190px;
+    margin-top: 10px;
+}
+
+/* BUTTON */
+input[type="submit"] {
+    width: 100%;
+    font-size: 18px;
+    background-color: #2f3e46;
+    color: white;
+    font-family: 'Kalam', cursive;
+    border: 0;
+    padding: 10px;
+    height: 45px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+input[type="submit"]:hover {
+    background-color: #1f2a30;
+}
+
+/* NAV */
+.top_menu {
+    background-color: #2f3e46;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    color: white;
+}
+
+.top_menu ul {
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.top_menu ul li {
+    display: inline-block;
+    width: 140px;
+}
+
+.top_menu ul li:hover {
+    background-color: #3e5c6f;
+}
+
+.top_menu ul li a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 12px 0;
+    display: block;
+}
+
+/* FORM OUTPUT */
+.formData {
+    font-size: 16px;
+    line-height: 1.6;
+}
