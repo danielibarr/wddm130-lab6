@@ -9,8 +9,9 @@ const Submission = require("./models/Submission");
 
 const app = express();
 
-mongoose.connect(process.env.MONGO_URI)
-
+mongoose.connect(process.env.MONGO_URI, {
+    serverSelectionTimeoutMS: 5000
+})
 .then(() => {
     console.log("Connected to MongoDB");
 })
@@ -153,11 +154,21 @@ app.post(
 
 app.get("/submissions", async (req, res) => {
 
-    const submissions = await Submission.find();
+    try {
 
-    res.render("submissions", {
-        submissions
-    });
+        const submissions = await Submission.find();
+
+        res.render("submissions", {
+            submissions
+        });
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.send("Error loading submissions");
+
+    }
 
 });
 
