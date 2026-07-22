@@ -43,8 +43,8 @@ app.post(
             .withMessage("Name is required."),
 
         body("email")
-            .notEmpty()
-            .withMessage("Email is required."),
+            .isEmail()
+            .withMessage("Email is not valid.")
 
         body("lunch")
             .notEmpty()
