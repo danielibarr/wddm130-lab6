@@ -1,8 +1,23 @@
+require("dotenv").config();
+
 const express = require("express");
 const path = require("path");
 const { body, validationResult } = require("express-validator");
 
+const mongoose = require("mongoose");
+const Submission = require("./models/Submission");
+
 const app = express();
+
+mongoose.connect(process.env.MONGO_URI)
+
+.then(() => {
+    console.log("Connected to MongoDB");
+})
+.catch((error)=>{
+    console.log("MongoDB connection error:");
+    console.log(error);
+});
 
 app.set("view engine", "ejs");
 
@@ -35,8 +50,32 @@ app.post(
             .withMessage("Please select lunch."),
 
         body("tickets")
-            .notEmpty()
-            .withMessage("Please select number of tickets."),
+            .isNumeric()
+            .withMessage("Tickets must be a valid number.")
+            .custom(value => {
+
+                if (Number(value) <= 0) {
+                    throw new Error("Tickets must be greater than 0.");
+                }
+
+                return true;
+
+            }),
+
+        body("lunch")
+            .custom((value, { req }) => {
+
+                if (value === "yes" && Number(req.body.tickets) < 3) {
+
+                    throw new Error(
+                        "Lunch can only be purchased when buying 3 or more tickets."
+                    );
+
+                }
+
+                return true;
+
+            }),
 
         body("campus")
             .notEmpty()
@@ -50,7 +89,7 @@ app.post(
             .matches(/^\(?(\d{3})\)?[\.\-\/\s]?(\d{3})[\.\-\/\s]?(\d{4})$/)
             .withMessage("Phone number is not valid.")
     ],
-    (req, res) => {
+    async (req, res) => {
 
     const validationErrors = validationResult(req);
 
@@ -83,6 +122,23 @@ app.post(
 
         let total = cost + tax;
 
+        const newSubmission = new Submission({
+
+            name,
+            email,
+            phone,
+            postcode,
+            campus,
+            tickets,
+            lunch,
+            subtotal: cost,
+            tax,
+            total
+
+        });
+
+        await newSubmission.save();
+
         res.render("result", {
             name,
             email,
@@ -93,6 +149,16 @@ app.post(
             total
         });
     }
+});
+
+app.get("/submissions", async (req, res) => {
+
+    const submissions = await Submission.find();
+
+    res.render("submissions", {
+        submissions
+    });
+
 });
 
 app.listen(3000, () => {

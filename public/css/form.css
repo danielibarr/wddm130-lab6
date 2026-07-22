@@ -129,3 +129,34 @@ input[type="submit"]:hover {
     font-size: 16px;
     line-height: 1.6;
 }
+
+/* Submissions table */
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    color: #333;
+    margin-top: 20px;
+}
+
+table th{
+    background-color: #0781b2;
+    color: white;
+    padding: 10px;
+}
+
+table td{
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+table tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+h2{
+    color: white;
+    text-align: center;
+}

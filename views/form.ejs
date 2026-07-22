@@ -31,10 +31,26 @@ No
 <label>Number of Tickets</label>
 
 <select name="tickets">
-    <option value="">----- Select -----</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
+
+    <option value="">
+        ----- Select -----
+    </option>
+
+    <option value="1"
+    <%= values.tickets == "1" ? "selected" : "" %>>
+        1
+    </option>
+
+    <option value="2"
+    <%= values.tickets == "2" ? "selected" : "" %>>
+        2
+    </option>
+
+    <option value="3"
+    <%= values.tickets == "3" ? "selected" : "" %>>
+        3
+    </option>
+
 </select>
 
 <br/>
@@ -42,10 +58,26 @@ No
 <label>Which Campus?</label>
 
 <select name="campus">
-    <option value="">----- Select -----</option>
-    <option value="Doon">Doon</option>
-    <option value="Waterloo">Waterloo</option>
-    <option value="Cambridge">Cambridge</option>
+
+    <option value="">
+        ----- Select -----
+    </option>
+
+    <option value="Doon"
+    <%= values.campus == "Doon" ? "selected" : "" %>>
+        Doon
+    </option>
+
+    <option value="Waterloo"
+    <%= values.campus == "Waterloo" ? "selected" : "" %>>
+        Waterloo
+    </option>
+
+    <option value="Cambridge"
+    <%= values.campus == "Cambridge" ? "selected" : "" %>>
+        Cambridge
+    </option>
+
 </select>
 
 <br/><br/>

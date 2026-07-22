@@ -1,0 +1,73 @@
+<%- include("partials/header") %>
+
+<section class="w50">
+
+    <h2>All Submissions</h2>
+
+    <table>
+
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Campus</th>
+            <th>Tickets</th>
+            <th>Lunch</th>
+            <th>Subtotal</th>
+            <th>Tax</th>
+            <th>Total</th>
+            <th>Date Submitted</th>
+        </tr>
+
+
+        <% submissions.forEach(function(submission){ %>
+
+        <tr>
+
+            <td>
+                <%= submission.name %>
+            </td>
+
+            <td>
+                <%= submission.email %>
+            </td>
+
+            <td>
+                <%= submission.campus %>
+            </td>
+
+            <td>
+                <%= submission.tickets %>
+            </td>
+
+            <td>
+                <%= submission.lunch %>
+            </td>
+
+            <td>
+                $<%= submission.subtotal.toFixed(2) %>
+            </td>
+
+            <td>
+                $<%= submission.tax.toFixed(2) %>
+            </td>
+
+            <td>
+                $<%= submission.total.toFixed(2) %>
+            </td>
+
+            <td>
+                <%= submission.createdAt.toDateString() %>
+            </td>
+
+        </tr>
+
+        <% }) %>
+
+
+    </table>
+
+
+</section>
+
+
+<%- include("partials/footer") %>
