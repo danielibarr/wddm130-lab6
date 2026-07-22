@@ -44,7 +44,7 @@ app.post(
 
         body("email")
             .isEmail()
-            .withMessage("Email is not valid.")
+            .withMessage("Email is not valid."),
 
         body("lunch")
             .notEmpty()
