@@ -1,6 +1,18 @@
 require("dotenv").config();
 
 const express = require("express");
+let mongoConnection = null;
+
+async function connectDB(){
+
+    if(mongoConnection){
+        return;
+    }
+
+    mongoConnection = await mongoose.connect(process.env.MONGO_URI);
+
+    console.log("Connected to MongoDB");
+}
 const path = require("path");
 const { body, validationResult } = require("express-validator");
 
@@ -9,16 +21,6 @@ const Submission = require("./models/Submission");
 
 const app = express();
 
-mongoose.connect(process.env.MONGO_URI, {
-    serverSelectionTimeoutMS: 5000
-})
-.then(() => {
-    console.log("Connected to MongoDB");
-})
-.catch((error)=>{
-    console.log("MongoDB connection error:");
-    console.log(error);
-});
 
 app.set("view engine", "ejs");
 
@@ -92,6 +94,7 @@ app.post(
     ],
     async (req, res) => {
 
+    await connectDB();
     const validationErrors = validationResult(req);
 
     const name = req.body.name;
@@ -155,7 +158,7 @@ app.post(
 app.get("/submissions", async (req, res) => {
 
     try {
-
+        await connectDB();
         const submissions = await Submission.find();
 
         res.render("submissions", {
