@@ -1,6 +1,8 @@
 require("dotenv").config();
 
 const express = require("express");
+const session = require("express-session");
+
 let mongoConnection = null;
 
 async function connectDB(){
@@ -18,6 +20,7 @@ const { body, validationResult } = require("express-validator");
 
 const mongoose = require("mongoose");
 const Submission = require("./models/Submission");
+const Admin = require("./models/Admin");
 
 const app = express();
 
@@ -28,13 +31,73 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: true }));
 
+app.use(
+    session({
+        secret: "lab8-secret",
+        resave: false,
+        saveUninitialized: false
+    })
+);
+
+app.use((req, res, next) => {
+
+    res.locals.admin = req.session.admin;
+
+    next();
+});
+
 app.use(express.static(path.join(__dirname, "public")));
+
+function isAuthenticated(req, res, next) {
+
+    if (!req.session.admin) {
+        return res.redirect("/login");
+    }
+
+    next();
+}
 
 app.get("/", (req, res) => {
     res.render("form", {
         errors: [],
         values: {}
     });
+});
+
+app.get("/login", (req, res) => {
+    res.render("login");
+});
+
+app.get("/logout", (req, res) => {
+
+    req.session.destroy(() => {
+        res.redirect("/");
+    });
+
+});
+
+app.post("/login", async (req, res) => {
+
+    await connectDB();
+
+    const username = req.body.username;
+    const password = req.body.password;
+
+    const admin = await Admin.findOne({
+        username: username,
+        password: password
+    });
+
+    if (!admin) {
+        return res.send("Invalid username or password");
+    }
+
+    req.session.admin = {
+        username: admin.username,
+        displayName: admin.displayName
+    };
+
+    res.redirect("/submissions");
 });
 
 app.post(
@@ -155,7 +218,7 @@ app.post(
     }
 });
 
-app.get("/submissions", async (req, res) => {
+app.get("/submissions", isAuthenticated, async (req, res) => {
 
     try {
         await connectDB();

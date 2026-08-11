@@ -14,16 +14,34 @@
 
 <nav class="top_menu">
 
-    <ul>
+   <ul>
 
-        <li>
-            <a href="/">Order Form</a>
-        </li>
+    <li>
+        <a href="/">Order Form</a>
+    </li>
+
+    <% if (admin) { %>
 
         <li>
             <a href="/submissions">All Orders</a>
         </li>
 
-    </ul>
+        <li>
+            Welcome, <%= admin.displayName %>
+        </li>
+
+        <li>
+            <a href="/logout">Logout</a>
+        </li>
+
+    <% } else { %>
+
+        <li>
+            <a href="/login">Login</a>
+        </li>
+
+    <% } %>
+
+</ul>
 
 </nav>
