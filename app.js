@@ -65,7 +65,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-    res.render("login");
+    res.render("login", {
+        error: "",
+        username: ""
+    });
 });
 
 app.get("/logout", (req, res) => {
@@ -89,7 +92,10 @@ app.post("/login", async (req, res) => {
     });
 
     if (!admin) {
-        return res.send("Invalid username or password");
+    return res.render("login", {
+        error: "Invalid username or password",
+        username: username
+    });
     }
 
     req.session.admin = {

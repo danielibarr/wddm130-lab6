@@ -11,10 +11,19 @@
 
 <h1>Admin Login</h1>
 
+<% if (error) { %>
+    <p><%= error %></p>
+<% } %>
+
 <form action="/login" method="POST">
 
     <label for="username">Username:</label>
-    <input type="text" id="username" name="username">
+    <input
+        type="text"
+        id="username"
+        name="username"
+        value="<%= username || '' %>"
+    >
 
     <br><br>
 
